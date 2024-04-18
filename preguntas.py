@@ -11,250 +11,217 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
+import re 
+from collections import defaultdict
 
 
-def pregunta_01():
-    """
-    Retorne la suma de la segunda columna.
-
-    Rta/
-    214
-
-    """
-    return
-
-
-def pregunta_02():
-    """
-    Retorne la cantidad de registros por cada letra de la primera columna como la lista
-    de tuplas (letra, cantidad), ordendas alfabéticamente.
-
-    Rta/
-    [
-        ("A", 8),
-        ("B", 7),
-        ("C", 5),
-        ("D", 6),
-        ("E", 14),
-    ]
-
-    """
-    return
+def pregunta_01(archivo_csv):
+    suma = 0
+    with open(archivo_csv, 'r') as f:
+        for linea in f:
+            elementos = linea.strip().split()
+            if len(elementos) >= 2:
+                valor = elementos[1]
+                try:
+                    suma += int(valor)
+                except ValueError:
+                    continue
+    return suma
 
 
-def pregunta_03():
-    """
-    Retorne la suma de la columna 2 por cada letra de la primera columna como una lista
-    de tuplas (letra, suma) ordendas alfabeticamente.
-
-    Rta/
-    [
-        ("A", 53),
-        ("B", 36),
-        ("C", 27),
-        ("D", 31),
-        ("E", 67),
-    ]
-
-    """
-    return
+def pregunta_02(archivo):
+    tuplas = []
+    with open(archivo, 'r') as f:
+        for linea in f:
+            componentes = re.split(r'\s+', linea.strip())
+            primera_columna = componentes[0]
+            segunda_columna = componentes[1]
+            tupla = (primera_columna, segunda_columna)
+            tuplas.append(tupla)
+    tuplas_ordenadas = sorted(tuplas)
+    
+    return tuplas_ordenadas
 
 
-def pregunta_04():
-    """
-    La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la cantidad de
-    registros por cada mes, tal como se muestra a continuación.
-
-    Rta/
-    [
-        ("01", 3),
-        ("02", 4),
-        ("03", 2),
-        ("04", 4),
-        ("05", 3),
-        ("06", 3),
-        ("07", 5),
-        ("08", 6),
-        ("09", 3),
-        ("10", 2),
-        ("11", 2),
-        ("12", 3),
-    ]
-
-    """
-    return
 
 
-def pregunta_05():
-    """
-    Retorne una lista de tuplas con el valor maximo y minimo de la columna 2 por cada
-    letra de la columa 1.
+def pregunta_03(archivo):
+    tuplas = []
+    with open(archivo, 'r') as f:
+        for linea in f:
+            componentes = re.split(r'\s+', linea.strip())
+            primera_columna = componentes[0]
+            segunda_columna = int(componentes[1])
+            tupla = (primera_columna, segunda_columna)
+            tuplas.append(tupla)
 
-    Rta/
-    [
-        ("A", 9, 2),
-        ("B", 9, 1),
-        ("C", 9, 0),
-        ("D", 8, 3),
-        ("E", 9, 1),
-    ]
+    sumatoria_tuplas = {}
+    for tupla in tuplas:
+        letra, numero = tupla
+        if letra in sumatoria_tuplas:
+            sumatoria_tuplas[letra] += numero
+        else:
+            sumatoria_tuplas[letra] = numero
+    tuplas_ordenadas = sorted(sumatoria_tuplas.items(), key=lambda x: x[0])
 
-    """
-    return
-
-
-def pregunta_06():
-    """
-    La columna 5 codifica un diccionario donde cada cadena de tres letras corresponde a
-    una clave y el valor despues del caracter `:` corresponde al valor asociado a la
-    clave. Por cada clave, obtenga el valor asociado mas pequeño y el valor asociado mas
-    grande computados sobre todo el archivo.
-
-    Rta/
-    [
-        ("aaa", 1, 9),
-        ("bbb", 1, 9),
-        ("ccc", 1, 10),
-        ("ddd", 0, 9),
-        ("eee", 1, 7),
-        ("fff", 0, 9),
-        ("ggg", 3, 10),
-        ("hhh", 0, 9),
-        ("iii", 0, 9),
-        ("jjj", 5, 17),
-    ]
-
-    """
-    return
+    return tuplas_ordenadas
 
 
-def pregunta_07():
-    """
-    Retorne una lista de tuplas que asocien las columnas 0 y 1. Cada tupla contiene un
-    valor posible de la columna 2 y una lista con todas las letras asociadas (columna 1)
-    a dicho valor de la columna 2.
-
-    Rta/
-    [
-        (0, ["C"]),
-        (1, ["E", "B", "E"]),
-        (2, ["A", "E"]),
-        (3, ["A", "B", "D", "E", "E", "D"]),
-        (4, ["E", "B"]),
-        (5, ["B", "C", "D", "D", "E", "E", "E"]),
-        (6, ["C", "E", "A", "B"]),
-        (7, ["A", "C", "E", "D"]),
-        (8, ["E", "D", "E", "A", "B"]),
-        (9, ["A", "B", "E", "A", "A", "C"]),
-    ]
-
-    """
-    return
 
 
-def pregunta_08():
-    """
-    Genere una lista de tuplas, donde el primer elemento de cada tupla contiene  el valor
-    de la segunda columna; la segunda parte de la tupla es una lista con las letras
-    (ordenadas y sin repetir letra) de la primera  columna que aparecen asociadas a dicho
-    valor de la segunda columna.
+def pregunta_04(archivo):
+    registros_por_mes = defaultdict(int)
 
-    Rta/
-    [
-        (0, ["C"]),
-        (1, ["B", "E"]),
-        (2, ["A", "E"]),
-        (3, ["A", "B", "D", "E"]),
-        (4, ["B", "E"]),
-        (5, ["B", "C", "D", "E"]),
-        (6, ["A", "B", "C", "E"]),
-        (7, ["A", "C", "D", "E"]),
-        (8, ["A", "B", "D", "E"]),
-        (9, ["A", "B", "C", "E"]),
-    ]
+    with open(archivo, 'r') as f:
+        for linea in f:
+            match = re.search(r'\d{4}-\d{2}-\d{2}', linea)
+            if match:
+                fecha = match.group(0)
+                mes = fecha.split('-')[1]
+                registros_por_mes[mes] += 1
+    registros_ordenados = sorted(registros_por_mes.items())
 
-    """
-    return
+    return registros_ordenados
 
 
-def pregunta_09():
-    """
-    Retorne un diccionario que contenga la cantidad de registros en que aparece cada
-    clave de la columna 5.
 
-    Rta/
-    {
-        "aaa": 13,
-        "bbb": 16,
-        "ccc": 23,
-        "ddd": 23,
-        "eee": 15,
-        "fff": 20,
-        "ggg": 13,
-        "hhh": 16,
-        "iii": 18,
-        "jjj": 18,
-    }
+def pregunta_05(archivo):
+    max_min_por_letra = {}
 
-    """
-    return
+    with open(archivo, 'r') as f:
+        for linea in f:
+            componentes = linea.split()
+            letra = componentes[0]
+            valor_columna_2 = int(componentes[1])
+
+            if letra in max_min_por_letra:
+                max_valor, min_valor = max_min_por_letra[letra]
+                max_min_por_letra[letra] = (max(max_valor, valor_columna_2), min(min_valor, valor_columna_2))
+            else:
+                max_min_por_letra[letra] = (valor_columna_2, valor_columna_2)
+
+    lista_tuplas = sorted(max_min_por_letra.items())
+
+    return lista_tuplas
 
 
-def pregunta_10():
-    """
-    Retorne una lista de tuplas contengan por cada tupla, la letra de la columna 1 y la
-    cantidad de elementos de las columnas 4 y 5.
 
-    Rta/
-    [
-        ("E", 3, 5),
-        ("A", 3, 4),
-        ("B", 4, 4),
-        ...
-        ("C", 4, 3),
-        ("E", 2, 3),
-        ("E", 3, 3),
-    ]
+def pregunta_06(archivo):
+    min_max_por_clave = {}
 
+    with open(archivo, 'r') as f:
+        for linea in f:
+            componentes = linea.split()
+            diccionario = componentes[4]
 
-    """
-    return
+            pares_clave_valor = diccionario.split(',')
+            for par in pares_clave_valor:
+                clave, valor_str = par.split(':')
+                valor = int(valor_str)
 
+                if clave in min_max_por_clave:
+                    min_valor, max_valor = min_max_por_clave[clave]
+                    min_max_por_clave[clave] = (min(min_valor, valor), max(max_valor, valor))
+                else:
+                    min_max_por_clave[clave] = (valor, valor)
 
-def pregunta_11():
-    """
-    Retorne un diccionario que contengan la suma de la columna 2 para cada letra de la
-    columna 4, ordenadas alfabeticamente.
+    lista_tuplas = [(clave, min_max_por_clave[clave][0], min_max_por_clave[clave][1]) for clave in min_max_por_clave]
+    lista_tuplas_ordenadas = sorted(lista_tuplas)
 
-    Rta/
-    {
-        "a": 122,
-        "b": 49,
-        "c": 91,
-        "d": 73,
-        "e": 86,
-        "f": 134,
-        "g": 35,
-    }
+    return lista_tuplas_ordenadas
+    
 
 
-    """
-    return
+def pregunta_07(archivo):
+    asociaciones = defaultdict(list)
+
+    with open(archivo, 'r') as f:
+        for linea in f:
+            componentes = linea.split()
+            valor_columna_1 = int(componentes[1])
+            letra_columna_0 = componentes[0]
+            asociaciones[valor_columna_1].append(letra_columna_0)
+    lista_tuplas_ordenadas = sorted(asociaciones.items())
+
+    return lista_tuplas_ordenadas
 
 
-def pregunta_12():
-    """
-    Genere un diccionario que contengan como clave la columna 1 y como valor la suma de
-    los valores de la columna 5 sobre todo el archivo.
 
-    Rta/
-    {
-        'A': 177,
-        'B': 187,
-        'C': 114,
-        'D': 136,
-        'E': 324
-    }
+def pregunta_08(archivo):
+    asociaciones = defaultdict(set)
 
-    """
-    return
+    with open(archivo, 'r') as f:
+        for linea in f:
+            componentes = linea.split()
+            valor_columna_1 = int(componentes[1])
+            letra_columna_0 = componentes[0]
+            asociaciones[valor_columna_1].add(letra_columna_0)
+    lista_tuplas_ordenadas = sorted(asociaciones.items())
+
+    return [(valor, sorted(list(letras))) for valor, letras in lista_tuplas_ordenadas]
+
+
+def pregunta_09(archivo):
+    conteo_registros = defaultdict(int)
+
+    with open(archivo, 'r') as f:
+        for linea in f:
+            componentes = linea.split()
+            diccionario_columna_5 = componentes[4]
+            pares_clave_valor = diccionario_columna_5.split(',')
+            for par in pares_clave_valor:
+                clave = par.split(':')[0]
+                conteo_registros[clave] += 1
+    conteo_registros_ordenado = dict(sorted(conteo_registros.items()))
+
+    return conteo_registros_ordenado
+
+
+
+
+def pregunta_10(archivo):
+    resultados = []
+
+    with open(archivo, 'r') as f:
+        for linea in f:
+            componentes = linea.split()
+            letra_columna_1 = componentes[0]
+            cantidad_columna_4 = len(componentes[3].split(','))
+            cantidad_columna_5 = len(componentes[4].split(','))
+            tupla_resultado = (letra_columna_1, cantidad_columna_4, cantidad_columna_5)
+            resultados.append(tupla_resultado)
+
+    return resultados
+
+
+
+def pregunta_11(archivo):
+    suma_letras = defaultdict(int)
+
+    with open(archivo, 'r') as f:
+        for linea in f:
+            componentes = linea.split()
+            letras_columna_4 = componentes[3].split(',')
+            suma_columna_2 = int(componentes[1])
+
+            for letra in letras_columna_4:
+                suma_letras[letra] += suma_columna_2
+    suma_letras_ordenadas = dict(sorted(suma_letras.items()))
+
+    return suma_letras_ordenadas
+
+
+
+def pregunta_12(archivo):
+    suma_letras = defaultdict(int)
+
+    with open(archivo, 'r') as f:
+        for linea in f:
+            componentes = linea.split()
+            letra_columna_1 = componentes[0]
+            valores_columna_5 = componentes[4].split(',')
+            for valor in valores_columna_5:
+                suma_letras[letra_columna_1] += int(valor.split(':')[1])
+    suma_letras_ordenado = dict(sorted(suma_letras.items()))
+
+    return suma_letras_ordenado
