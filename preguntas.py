@@ -15,9 +15,9 @@ import re
 from collections import defaultdict
 
 
-def pregunta_01(archivo_csv):
+def pregunta_01():
     suma = 0
-    with open(archivo_csv, 'r') as f:
+    with open('data.csv', 'r') as f:
         for linea in f:
             elementos = linea.strip().split()
             if len(elementos) >= 2:
@@ -29,9 +29,10 @@ def pregunta_01(archivo_csv):
     return suma
 
 
-def pregunta_02(archivo):
+
+def pregunta_02():
     tuplas = []
-    with open(archivo, 'r') as f:
+    with open('data.csv', 'r') as f:
         for linea in f:
             componentes = re.split(r'\s+', linea.strip())
             primera_columna = componentes[0]
@@ -43,11 +44,9 @@ def pregunta_02(archivo):
     return tuplas_ordenadas
 
 
-
-
-def pregunta_03(archivo):
+def pregunta_03():
     tuplas = []
-    with open(archivo, 'r') as f:
+    with open('data.csv', 'r') as f:
         for linea in f:
             componentes = re.split(r'\s+', linea.strip())
             primera_columna = componentes[0]
@@ -69,10 +68,10 @@ def pregunta_03(archivo):
 
 
 
-def pregunta_04(archivo):
+def pregunta_04():
     registros_por_mes = defaultdict(int)
 
-    with open(archivo, 'r') as f:
+    with open('data.csv', 'r') as f:
         for linea in f:
             match = re.search(r'\d{4}-\d{2}-\d{2}', linea)
             if match:
@@ -85,10 +84,10 @@ def pregunta_04(archivo):
 
 
 
-def pregunta_05(archivo):
+def pregunta_05():
     max_min_por_letra = {}
 
-    with open(archivo, 'r') as f:
+    with open('data.csv', 'r') as f:
         for linea in f:
             componentes = linea.split()
             letra = componentes[0]
@@ -106,10 +105,10 @@ def pregunta_05(archivo):
 
 
 
-def pregunta_06(archivo):
+def pregunta_06():
     min_max_por_clave = {}
 
-    with open(archivo, 'r') as f:
+    with open('data.csv', 'r') as f:
         for linea in f:
             componentes = linea.split()
             diccionario = componentes[4]
@@ -132,10 +131,10 @@ def pregunta_06(archivo):
     
 
 
-def pregunta_07(archivo):
+def pregunta_07():
     asociaciones = defaultdict(list)
 
-    with open(archivo, 'r') as f:
+    with open('data.csv', 'r') as f:
         for linea in f:
             componentes = linea.split()
             valor_columna_1 = int(componentes[1])
@@ -147,10 +146,10 @@ def pregunta_07(archivo):
 
 
 
-def pregunta_08(archivo):
+def pregunta_08():
     asociaciones = defaultdict(set)
 
-    with open(archivo, 'r') as f:
+    with open('data.csv', 'r') as f:
         for linea in f:
             componentes = linea.split()
             valor_columna_1 = int(componentes[1])
@@ -161,10 +160,10 @@ def pregunta_08(archivo):
     return [(valor, sorted(list(letras))) for valor, letras in lista_tuplas_ordenadas]
 
 
-def pregunta_09(archivo):
+def pregunta_09():
     conteo_registros = defaultdict(int)
 
-    with open(archivo, 'r') as f:
+    with open('data.csv', 'r') as f:
         for linea in f:
             componentes = linea.split()
             diccionario_columna_5 = componentes[4]
@@ -179,10 +178,10 @@ def pregunta_09(archivo):
 
 
 
-def pregunta_10(archivo):
+def pregunta_10():
     resultados = []
 
-    with open(archivo, 'r') as f:
+    with open('data.csv', 'r') as f:
         for linea in f:
             componentes = linea.split()
             letra_columna_1 = componentes[0]
@@ -195,10 +194,10 @@ def pregunta_10(archivo):
 
 
 
-def pregunta_11(archivo):
+def pregunta_11():
     suma_letras = defaultdict(int)
 
-    with open(archivo, 'r') as f:
+    with open('data.csv', 'r') as f:
         for linea in f:
             componentes = linea.split()
             letras_columna_4 = componentes[3].split(',')
@@ -212,10 +211,10 @@ def pregunta_11(archivo):
 
 
 
-def pregunta_12(archivo):
+def pregunta_12():
     suma_letras = defaultdict(int)
 
-    with open(archivo, 'r') as f:
+    with open('data.csv', 'r') as f:
         for linea in f:
             componentes = linea.split()
             letra_columna_1 = componentes[0]
