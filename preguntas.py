@@ -11,7 +11,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
-import re 
+import re
 from collections import defaultdict
 
 
@@ -29,19 +29,18 @@ def pregunta_01():
     return suma
 
 
-
 def pregunta_02():
-    tuplas = []
-    with open('data.csv', 'r') as f:
-        for linea in f:
-            componentes = re.split(r'\s+', linea.strip())
-            primera_columna = componentes[0]
-            segunda_columna = componentes[1]
-            tupla = (primera_columna, segunda_columna)
-            tuplas.append(tupla)
-    tuplas_ordenadas = sorted(tuplas)
-    
-    return tuplas_ordenadas
+    with open('data.csv', 'r') as file:
+        apariciones = {}
+        for linea in file:
+            match = re.match(r'(\w)\s+(\d+)', linea)
+            if match:
+                letra = match.group(1)
+                if letra in apariciones:
+                    apariciones[letra] += 1
+                else:
+                    apariciones[letra] = 1
+    return sorted(list(apariciones.items()))
 
 
 def pregunta_03():
@@ -66,8 +65,6 @@ def pregunta_03():
     return tuplas_ordenadas
 
 
-
-
 def pregunta_04():
     registros_por_mes = defaultdict(int)
 
@@ -83,7 +80,6 @@ def pregunta_04():
     return registros_ordenados
 
 
-
 def pregunta_05():
     max_min_por_letra = {}
 
@@ -92,17 +88,14 @@ def pregunta_05():
             componentes = linea.split()
             letra = componentes[0]
             valor_columna_2 = int(componentes[1])
-
             if letra in max_min_por_letra:
                 max_valor, min_valor = max_min_por_letra[letra]
                 max_min_por_letra[letra] = (max(max_valor, valor_columna_2), min(min_valor, valor_columna_2))
             else:
                 max_min_por_letra[letra] = (valor_columna_2, valor_columna_2)
+    lista_tuplas = [(letra,) + valores for letra, valores in max_min_por_letra.items()]
 
-    lista_tuplas = sorted(max_min_por_letra.items())
-
-    return lista_tuplas
-
+    return sorted(lista_tuplas)
 
 
 def pregunta_06():
@@ -130,7 +123,6 @@ def pregunta_06():
     return lista_tuplas_ordenadas
     
 
-
 def pregunta_07():
     asociaciones = defaultdict(list)
 
@@ -143,7 +135,6 @@ def pregunta_07():
     lista_tuplas_ordenadas = sorted(asociaciones.items())
 
     return lista_tuplas_ordenadas
-
 
 
 def pregunta_08():
@@ -176,8 +167,6 @@ def pregunta_09():
     return conteo_registros_ordenado
 
 
-
-
 def pregunta_10():
     resultados = []
 
@@ -191,7 +180,6 @@ def pregunta_10():
             resultados.append(tupla_resultado)
 
     return resultados
-
 
 
 def pregunta_11():
@@ -208,7 +196,6 @@ def pregunta_11():
     suma_letras_ordenadas = dict(sorted(suma_letras.items()))
 
     return suma_letras_ordenadas
-
 
 
 def pregunta_12():
